@@ -14,12 +14,17 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
-    <div class="wrapper">
-
+<br>
         <%= yield %>
+<br>
+      <% #if logged_in? %>
+      <div class="wrapper">
+      <div><a href="/">Home</a></div>
+      <div><a href="/sessions/logout">Log Out</a></div>
+  </body><br>
 
       <footer class="branding">
-        <small>&copy; 2020 <strong>Foodbank</strong></small>
+        <br><small>&copy; 2020 <strong>Foodbank</strong></small>
       </footer>
     </div>
 

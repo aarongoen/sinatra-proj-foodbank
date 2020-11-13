@@ -1,0 +1,11 @@
+<h3>Item(s): <%= @food_request.name %></h3>
+<h3>Amount: <%= @food_request.quantity %> <%= @food_request.measuring_unit %></h3>
+
+<form action="/food_requests/<%= @food_request.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button>delete item(s)</button>
+</form>
+<br>
+<a href="/food_requests/<%= @food_request.id %>/edit"><button>edit</button></a>
+
+

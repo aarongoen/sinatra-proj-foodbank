@@ -1,0 +1,12 @@
+<h1>Edit food request for: <%= @food_request.name %></h1>
+<p><%= @error %></p>
+<form action="/food_requests/<%= @food_request.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label>Item(s):</label>
+    <input type="text" name="food_request[name]" value="<%= @food_request.name %>">
+    <label>Quantity:</label>
+    <input type="integer" name="food_request[quantity]" value="<%= @food_request.quantity %>">
+    <label>Measuring Unit:</label>
+    <input type="text" name="food_request[measuring_unit]" value="<%= @food_request.measuring_unit %>">
+    <button type="submit">edit</button>
+</form>

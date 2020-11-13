@@ -1,4 +1,13 @@
-"Welcome, <%=@user.name%>!"
+<h2>Welcome, <%=@user.username%>!</h2>
+<% if @user_food_requests.empty? %>
 
-<a href="/sessions/logout">Log Out</a>
 
+<h3>Here are your current food requests.</h3>
+<% FoodRequest.all.each do |r| %>
+    <li><%= r.quantity %> <%= r.measuring_unit %>
+    of <%= r.name %>
+<% end %><li>
+<br>
+<h3>What would you like to do next?</h3>
+
+<a href="/food_requests/new">Request Food</a>

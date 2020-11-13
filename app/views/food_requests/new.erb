@@ -1,0 +1,32 @@
+<h1>What food(s) would you like?</h1>
+<p><%= @error %></p>
+
+<form action="/food_requests" method="POST">
+<br>
+	<label for="name">food request:</label> 
+    <input type="text" name="name" id="name1">
+	<label for="measuring_unit">measuring unit:</label>
+    <input type="text" name="measuring_unit" id="measuring_unit1">
+    <label for="quantity">quantity</label>
+    <input type="integer" name="quantity" id="quantity1">
+    <!-- 
+    <br>
+    <label for="name_2">food request 2:</label> 
+    <input type="text" name="name_2" id="name_2">
+	<label for="measuring_unit_2">measuring unit 2:</label>
+    <input type="text" name="measuring_unit_2" id="measuring_unit_2">
+    <label for="quantity_2">quantity 2:</label>
+    <input type="integer" name="quantity_2" id="quantity_2">
+    <br>
+    <br>
+    <label for="name_3">food request 3:</label> 
+    <input type="text" name="name_3" id="name_3 ">
+	<label for="measuring_unit_3">measuring unit 3:</label>
+    <input type="text" name="measuring_unit_3" id="measuring_unit_3">
+    <label for="quantity_3">quantity 3:</label>
+    <input type="integer" name="quantity_3" id="quantity_3">
+    <br>
+    -->
+	<button type="submit">Request</button>
+</form>
+

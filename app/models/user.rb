@@ -1,3 +1,4 @@
 class User < ActiveRecord::Base
-    has_many :foods
+    has_secure_password
+    has_many :food_requests
 end

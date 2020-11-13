@@ -1,38 +1,28 @@
 class UsersController < ApplicationController
 
-    # GET: /user
-    get "/user" do
-      erb :"/user/index.html"
-    end
-  
-    # GET: /user/new
-    get "/user/new" do
-      erb :"/user/new.html"
-    end
-  
-    # POST: /user
-    post "/user" do
-      redirect "/user"
-    end
-  
-    # GET: /user/5
-    get "/user/:id" do
-      erb :"/user/show.html"
-    end
-  
-    # GET: /user/5/edit
-    get "/user/:id/edit" do
-      erb :"/user/edit.html"
-    end
-  
-    # PATCH: /user/5
-    patch "/user/:id" do
-      redirect "/user/:id"
-    end
-  
-    # DELETE: /user/5/delete
-    delete "/user/:id/delete" do
-      redirect "/user"
-    end
+  get '/users/signup' do
+
+    erb :'/users/signup'
+  end
+
+  post '/users/signup' do
+    # binding.pry
+      @user = User.new(params)
+      # binding.pry
+      if @user.username.empty? #|| @user.password.empty?
+        @error = "You must enter a username and password. Please try again."
+        erb :'/users/signup'
+      elsif User.find_by(username: @user.username) 
+        @error = "This username is taken. Please try again."
+        erb :'/users/signup' 
+      else 
+        @user.save
+        # binding.pry
+        session[:id] = @user.id
+        @user
+        redirect "/food_requests"
+      end
+  end
+
   end
   
