@@ -1,26 +1,10 @@
 class SessionsController < ApplicationController
 
-
-      # get 'users/user_home' do
-      #   # binding.pry
-      #   @user = session[:id] = @session
-        
-      # erb :'/users/user_home'
-      # end
-      #   if user
-      #     # binding.pry
-        # 		redirect "/login"
-        # 	else
-        # 		redirect "/failure"
-      #   end
-      #   erb :sign_up
-        # end
     get '/sessions/login' do
       erb :'/sessions/login'
     end
     
     post '/sessions/login' do
-          # binding.pry  
           @user = User.find_by(username: params["username"])
 
           if params["username"].empty? || params["password"].empty?
@@ -41,14 +25,6 @@ class SessionsController < ApplicationController
             erb :'/sessions/login'
           end
 
-
-      # @user = User.find_by(name: params[:name], password: params[:password])
-      # if user && user.authenticate(params[:password])
-      #         session[:user_id] = user.id	
-      #         redirect "/sessions/success"
-      #     else
-      #         redirect "/sessions/failure"
-      #     end
     end
     
       # get "/success" do

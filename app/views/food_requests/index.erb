@@ -4,7 +4,7 @@
 Currently, you have no food requests.
 <% end %>
 
-<% @user_food_requests.each do |r| %>
+<% @user.food_requests.each do |r| %>
     <ol><a href="/food_requests/<%= r.id %>">
     <%= r.quantity %>
     <%= r.measuring_unit %>

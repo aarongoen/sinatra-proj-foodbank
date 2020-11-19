@@ -6,9 +6,8 @@ class UsersController < ApplicationController
   end
 
   post '/users/signup' do
-    # binding.pry
-      @user = User.new(params)
-      # binding.pry
+
+    @user = User.new(params)
       if @user.username.empty? #|| @user.password.empty?
         @error = "You must enter a username and password. Please try again."
         erb :'/users/signup'

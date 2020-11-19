@@ -2,19 +2,17 @@ class FoodRequestsController < ApplicationController
 
 # CREATE
     # New
-    # Make a GET request to '/food_requests/new'
     get '/food_requests/new' do
-        erb :'/food_requests/new'
+        erb :'/food_requests/new' #erb means 'embedded Ruby'
     end
 
     # Create
-    # Make a POST request to '/food_requests'
     post '/food_requests' do
-        # binding.pry
         food_request = FoodRequest.new(params)
         if !food_request.name.empty? 
             food_request.user_id= current_user.id
             food_request.save
+            # binding.pry
             redirect '/food_requests'
 
         #     food_request = FoodRequest.new(params[:food_request])
@@ -24,8 +22,7 @@ class FoodRequestsController < ApplicationController
         #         food_request.user_id= current_user.id
         #         food_request.save
         #     end
-    
-            redirect '/food_requests'
+        # redirect '/food_requests'
         else 
             @error = "Data invalid. Please try again."
             erb :'/food_requests/new'
@@ -35,8 +32,6 @@ class FoodRequestsController < ApplicationController
 # READ
 
     # Index
-        # Make a GET request to '/food_requests'
-
         get '/food_requests' do
             if @user = User.find_by(id: session[:id])
                 @food_requests = FoodRequest.all.reverse
@@ -45,7 +40,6 @@ class FoodRequestsController < ApplicationController
                     r.user_id == @user.id
                     # binding.pry
                 end
-                
                 erb :'/food_requests/index'
             else
                 redirect '/sessions/login'
@@ -53,7 +47,6 @@ class FoodRequestsController < ApplicationController
         end
 
     # Show
-        # Make a GET request to '/food_requests/:id'
         get '/food_requests/:id' do
             @food_request = FoodRequest.find(params["id"])
             erb :'/food_requests/show'
@@ -62,16 +55,13 @@ class FoodRequestsController < ApplicationController
 # UPDATE
 
     # Edit
-        # Make a GET request to '/recipes/:id/edit'
         get '/food_requests/:id/edit' do
             @food_request = FoodRequest.find(params[:id])
             erb :'/food_requests/edit'
         end
 
     # Update
-        # Make a PATCH request to '/food_requests/:id'
         patch '/food_requests/:id' do
-            # binding.pry
             @food_request = FoodRequest.find(params[:id])
             if !params["food_request"]["name"].empty? && !params["food_request"]["quantity"].empty? 
                 @food_request.update(params["food_request"])
@@ -85,10 +75,8 @@ class FoodRequestsController < ApplicationController
 # DELETE
 
     # Destroy
-        # Make a DELETE request to '/food_requests/:id'
         delete '/food_requests/:id' do
             food_request = FoodRequest.find(params[:id])
-            # binding.pry
             food_request.destroy
             redirect '/food_requests'
         end

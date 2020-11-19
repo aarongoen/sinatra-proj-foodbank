@@ -6,15 +6,15 @@ gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'rake'
 gem 'require_all'
 gem 'sqlite3', '~> 1.3.6'
-gem 'thin'
+gem 'thin' # web server
 gem 'shotgun'
 gem 'pry'
-gem 'bcrypt'
+gem 'bcrypt' # encrypts passwords
 gem 'tux'
 
 group :test do
   gem 'rspec'
-  gem 'capybara'
+  gem 'capybara' # used to test websites by simulating users.
   gem 'rack-test'
   gem 'database_cleaner', git: 'https://github.com/bmabey/database_cleaner.git'
 end
