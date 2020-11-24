@@ -3,7 +3,14 @@ class FoodRequestsController < ApplicationController
 # CREATE
     # New
     get '/food_requests/new' do
-        erb :'/food_requests/new' #erb means 'embedded Ruby'
+        if Helpers.is_logged_in?(session)
+            # binding.pry
+            @user = Helpers.current_user(session)
+            erb :'/food_requests/new'
+        else
+            @error = "You must log in first."
+            erb :'/sessions/login'
+        end
     end
 
     # Create
@@ -54,13 +61,11 @@ class FoodRequestsController < ApplicationController
         get '/food_requests/:id' do
 
             if Helpers.is_logged_in?(session)
-                # binding.pry
                 @user = Helpers.current_user(session)
-
-            @food_request = FoodRequest.find(params["id"])
-            erb :'/food_requests/show'
+                @food_request = FoodRequest.find(params["id"])
+                erb :'/food_requests/show'
             else
-            redirect '/sessions/login'
+                redirect '/sessions/login'
             end
         end
 
