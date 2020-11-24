@@ -9,7 +9,9 @@ class FoodRequestsController < ApplicationController
     # Create
     post '/food_requests' do
         food_request = FoodRequest.new(params)
+
         if !food_request.name.empty? 
+            binding.pry
             food_request.user_id= current_user.id
             food_request.save
             # binding.pry
@@ -33,13 +35,15 @@ class FoodRequestsController < ApplicationController
 
     # Index
         get '/food_requests' do
-            if @user = User.find_by(id: session[:id])
+            # if @user = User.find_by(id: session[:id])
+
+            if Helpers.is_logged_in?(session)
+                # binding.pry
+                @user = Helpers.current_user(session)
+
                 @food_requests = FoodRequest.all.reverse
 
-                @user_food_requests = @food_requests.select do |r|
-                    r.user_id == @user.id
-                    # binding.pry
-                end
+                @user_food_requests = @user.food_requests
                 erb :'/food_requests/index'
             else
                 redirect '/sessions/login'
@@ -48,8 +52,16 @@ class FoodRequestsController < ApplicationController
 
     # Show
         get '/food_requests/:id' do
+
+            if Helpers.is_logged_in?(session)
+                # binding.pry
+                @user = Helpers.current_user(session)
+
             @food_request = FoodRequest.find(params["id"])
             erb :'/food_requests/show'
+            else
+            redirect '/sessions/login'
+            end
         end
 
 # UPDATE

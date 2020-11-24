@@ -5,14 +5,14 @@ class SessionsController < ApplicationController
     end
     
     post '/sessions/login' do
-          @user = User.find_by(username: params["username"])
+          @user = User.find_by(username: params[:username], password: params[:password])
 
           if params["username"].empty? || params["password"].empty?
             @error = "You must enter a username and password. Please try again."
             erb :'/sessions/login'
           elsif
             @user && @user.authenticate(params[:password]) 
-            # binding.pry
+            binding.pry
             session[:id] = @user.id
             redirect "/food_requests"
           elsif
