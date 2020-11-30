@@ -18,7 +18,7 @@ class FoodRequestsController < ApplicationController
         food_request = FoodRequest.new(params)
 
         if !food_request.name.empty? 
-            binding.pry
+            # binding.pry
             food_request.user_id= current_user.id
             food_request.save
             # binding.pry
@@ -42,10 +42,10 @@ class FoodRequestsController < ApplicationController
 
     # Index
         get '/food_requests' do
-            # if @user = User.find_by(id: session[:id])
+            @user = User.find_by(id: session[:id])
+            # binding.pry
 
             if Helpers.is_logged_in?(session)
-                # binding.pry
                 @user = Helpers.current_user(session)
 
                 @food_requests = FoodRequest.all.reverse
