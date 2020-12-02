@@ -14,6 +14,13 @@ class ApplicationController < Sinatra::Base
   get "/" do #GET request action whose method is the route '/'. It directs the client to the ':welcome' view.
     erb :welcome
   end
+
+  # def authorize
+  #   if !current_user
+  #     flash[:alert] = "You aren't authorized to visit that page."
+  #     redirect_to '/'
+  #   end
+  # end
   
   helpers do #Methods to verify the client is logged in by checking to see if the user's id is in the session id.
     def logged_in?

@@ -67,9 +67,8 @@ class FoodRequestsController < ApplicationController
     # Edit
         get '/food_requests/:id/edit' do
             @food_request= current_user.food_requests.find_by(id: params["id"])
-            if current_user
-            @food_request = FoodRequest.find(params[:id])
-            erb :'/food_requests/edit'
+            if @food_request 
+                erb :'/food_requests/edit'
             else
                 @error = "You must be logged in to edit this request."
                 redirect '/sessions/login'
@@ -78,8 +77,8 @@ class FoodRequestsController < ApplicationController
 
     # Update
         patch '/food_requests/:id' do
-            @food_request = FoodRequest.find(params[:id])
-            if current_user && !params["food_request"]["name"].empty? && !params["food_request"]["quantity"].empty? 
+            @food_request= current_user.food_requests.find_by(id: params["id"])
+            if @food_request && !params["food_request"]["name"].empty? && !params["food_request"]["quantity"].empty? 
                 @food_request.update(params["food_request"])
                 redirect "/food_requests/#{params[:id]}"
             else

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     end
     
     post '/sessions/login' do
-      @user = User.find_by(Username: params[:username])
+      @user = User.find_by(username: params[:username])
       # binding.pry
           if params["username"].empty? || params["password"].empty?
             @error = "You must enter a username and password. Please try again."
