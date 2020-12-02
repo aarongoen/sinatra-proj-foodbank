@@ -3,9 +3,8 @@ class FoodRequestsController < ApplicationController
 # CREATE
     # New
     get '/food_requests/new' do
-        if Helpers.is_logged_in?(session)
+        if logged_in?
             # binding.pry
-            @user = Helpers.current_user(session)
             erb :'/food_requests/new'
         else
             @error = "You must log in first."
@@ -19,7 +18,7 @@ class FoodRequestsController < ApplicationController
 
         if !food_request.name.empty? 
             # binding.pry
-            food_request.user_id= current_user.id
+            food_request.user_id = current_user.id
             food_request.save
             # binding.pry
             redirect '/food_requests'
@@ -45,12 +44,8 @@ class FoodRequestsController < ApplicationController
             @user = User.find_by(id: session[:id])
             # binding.pry
 
-            if Helpers.is_logged_in?(session)
-                @user = Helpers.current_user(session)
-
-                @food_requests = FoodRequest.all.reverse
-
-                @user_food_requests = @user.food_requests
+            if logged_in?
+                @food_requests = current_user.food_requests
                 erb :'/food_requests/index'
             else
                 redirect '/sessions/login'
@@ -59,13 +54,11 @@ class FoodRequestsController < ApplicationController
 
     # Show
         get '/food_requests/:id' do
-
-            if Helpers.is_logged_in?(session)
-                @user = Helpers.current_user(session)
-                @food_request = FoodRequest.find(params["id"])
+            @food_request= current_user.food_requests.find_by(id: params["id"])
+            if @food_request 
                 erb :'/food_requests/show'
             else
-                redirect '/sessions/login'
+                redirect '/food_requests'
             end
         end
 
@@ -73,14 +66,20 @@ class FoodRequestsController < ApplicationController
 
     # Edit
         get '/food_requests/:id/edit' do
+            @food_request= current_user.food_requests.find_by(id: params["id"])
+            if current_user
             @food_request = FoodRequest.find(params[:id])
             erb :'/food_requests/edit'
+            else
+                @error = "You must be logged in to edit this request."
+                redirect '/sessions/login'
+            end
         end
 
     # Update
         patch '/food_requests/:id' do
             @food_request = FoodRequest.find(params[:id])
-            if !params["food_request"]["name"].empty? && !params["food_request"]["quantity"].empty? 
+            if current_user && !params["food_request"]["name"].empty? && !params["food_request"]["quantity"].empty? 
                 @food_request.update(params["food_request"])
                 redirect "/food_requests/#{params[:id]}"
             else

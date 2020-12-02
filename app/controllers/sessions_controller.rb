@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 
     get '/sessions/login' do
-      if Helpers.is_logged_in?(session)
+      if logged_in?
         redirect to '/food_requests'
       else
       erb :'/sessions/login'

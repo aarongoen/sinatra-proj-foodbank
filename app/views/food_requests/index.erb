@@ -1,10 +1,12 @@
-<h2><%=@user.username%>, here are your food requests.</h2>
+<h2>Hello, <%=current_user.username%>!</h2>
 
-<% if @user_food_requests.empty? %>
+<% if @food_requests.empty? %>
 Currently, you have no food requests.
+<% else %>
+Here are your food requests.
 <% end %>
 
-<% @user.food_requests.each do |r| %>
+<% @food_requests.each do |r| %>
     <ol><a href="/food_requests/<%= r.id %>">
     <%= r.quantity %>
     <%= r.measuring_unit %>

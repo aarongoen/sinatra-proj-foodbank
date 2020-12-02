@@ -17,11 +17,11 @@ class ApplicationController < Sinatra::Base
   
   helpers do #Methods to verify the client is logged in by checking to see if the user's id is in the session id.
     def logged_in?
-        !!session[:id]
+        !!session[:user_id]
     end
 
     def current_user
-        User.find(session[user_id])
+        User.find(session[:user_id])
     end
 end
 
