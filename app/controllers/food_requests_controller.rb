@@ -41,7 +41,7 @@ class FoodRequestsController < ApplicationController
 
     # Index
         get '/food_requests' do
-            @user = User.find_by(id: session[:id])
+            # @user = User.find_by(id: session[:id])
             # binding.pry
 
             if logged_in?

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         @user.save
         # binding.pry
         session[:id] = @user.id
-        redirect "/food_requests"
+        redirect '/food_requests'
       end
   end
 
