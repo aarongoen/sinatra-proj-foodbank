@@ -4,7 +4,6 @@ class FoodRequestsController < ApplicationController
     # New
     get '/food_requests/new' do
         if logged_in?
-            # binding.pry
             erb :'/food_requests/new'
         else
             @error = "You must log in first."
@@ -17,20 +16,9 @@ class FoodRequestsController < ApplicationController
         food_request = FoodRequest.new(params)
 
         if !food_request.name.empty? 
-            # binding.pry
             food_request.user_id = current_user.id
             food_request.save
-            # binding.pry
             redirect '/food_requests'
-
-        #     food_request = FoodRequest.new(params[:food_request])
-        # if !food_request.name.empty? 
-        #     params[:food_request].each do |details|
-        #         FoodRequest.new(details)
-        #         food_request.user_id= current_user.id
-        #         food_request.save
-        #     end
-        # redirect '/food_requests'
         else 
             @error = "Data invalid. Please try again."
             erb :'/food_requests/new'
@@ -42,8 +30,6 @@ class FoodRequestsController < ApplicationController
     # Index
         get '/food_requests' do
             # @user = User.find_by(id: session[:id])
-            # binding.pry
-
             if logged_in?
                 @food_requests = current_user.food_requests
                 erb :'/food_requests/index'

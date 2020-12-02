@@ -16,9 +16,10 @@ class UsersController < ApplicationController
         erb :'/users/signup' 
       else 
         @user.save
+        session[:user_id] = @user.id
         # binding.pry
-        session[:id] = @user.id
-        redirect '/food_requests'
+
+        erb :'/food_requests/index'
       end
   end
 
