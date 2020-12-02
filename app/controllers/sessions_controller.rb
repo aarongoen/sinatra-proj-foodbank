@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
             @user && @user.authenticate(params[:password]) 
             session[:user_id] = @user.id
             # binding.pry
-            redirect '/food_requests'
+            erb :'/food_requests/index'
           elsif 
             # binding.pry
             !@user.authenticate(params[:password])
